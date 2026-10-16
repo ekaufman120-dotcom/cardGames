@@ -13,20 +13,20 @@ public class CardHandCLI
   {
     Scanner scan = new Scanner(System.in);
     final int HANDSIZE = 2;
+    int funds = 100; //set to a value of your choice
+    int bet = -1;
     //int slot;
 
     //Card card;                       // playing card
     CardDeck deck = new CardDeck();  // deck of playing cards
     
     ListInterface<Card> hand = new ABList<Card>(HANDSIZE); // user's hand
-
+    
     deck.shuffle();
     hand.add(deck.drawCard());  // deals 1st card and places into hand
     hand.add(deck.drawCard());
     
     printCards(hand);
-
-
     /*
     for (int i = 1; i < HANDSIZE; i++)
     {
@@ -53,10 +53,18 @@ public class CardHandCLI
 
   public static void printCards(ListInterface<Card> array)
   {
+    System.out.print("Your hand: ");
     for (int o = 0; o < array.size()-1; o++)
     {
       System.out.print(array.get(0)+", ");
     }
-    System.out.print(array.get(array.size()-1));
+    System.out.println(array.get(array.size()-1));
+  }
+
+  public static boolean inRange(int num, int bound1, int bound2)
+  {
+    if(num>bound1&&num<bound2||num<bound1&&num>bound2)
+      return true;
+    return false;
   }
 }
