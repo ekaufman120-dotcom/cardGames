@@ -13,8 +13,8 @@ public class CardHandCLI
   {
     Scanner scan = new Scanner(System.in);
     final int HANDSIZE = 2;
-    int funds = 100; //set to a value of your choice
-    int bet = -1;
+    double funds = 100; //set to a value of your choice
+    double bet = -1;
     //int slot;
 
     //Card card;                       // playing card
@@ -36,8 +36,10 @@ public class CardHandCLI
       hand.add(deck.drawCard());  // deals 1st card and places into hand
       hand.add(deck.drawCard());
       
+      System.out.println("Here's yer cards.");
       printCards(hand);
-      wait(1000);
+      
+      
     }
     /*
     for (int i = 1; i < HANDSIZE; i++)
@@ -88,7 +90,40 @@ public class CardHandCLI
     }
     catch(Exception e)
     {
-      System.out.println("ok so the sleep broke lol");
+      System.out.println("Kid? You gonna get up? Oh, phew.");
     }
+  }
+
+  public static double bet(double funds, Scanner scanner)
+  {
+    double bet = -1;
+    System.out.println("'kay. How much ya' wanna bet?");
+    System.out.println("Remember, ye got "+funds+" dollas' to spend still.");
+    while(bet>0&&bet<funds)
+    {
+      try{
+        bet = Integer.parseInt(scanner.next());
+      }
+      catch(Exception e){
+        System.out.println("Kid. That ain't a number.");
+      }
+      if(bet == 0)
+      {
+        System.out.println("Zero? We ain't playing for fun, kid. Bet somethin' bigger.");
+      }
+      else if(bet <= funds*.1)
+      {
+        System.out.println("Good 'nough for me!");
+      }
+      else if(bet == funds)
+      {
+        System.out.println("Ooh! All in!");
+      }
+      else
+      {
+        System.out.println("'kay. Let's get a move on, shall we?");
+      }
+    }
+    return bet;
   }
 }
