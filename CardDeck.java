@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 public class CardDeck
 {
   public static final int NUMCARDS = 52;
+  public int currentNumCards = 52;
   
   protected ABList<Card> deck;
   //protected Iterator<Card> deal;
@@ -35,7 +36,7 @@ public class CardDeck
     int randLoc;                // random location in card deck
     Card temp;                  // for swap of cards
     
-    for (int i = (NUMCARDS - 1); i > 0; i--)
+    for (int i = (currentNumCards - 1); i > 0; i--)
     {
       randLoc = rand.nextInt(i);  // random integer between 0 and i - 1
       temp = deck.get(randLoc);
@@ -68,11 +69,13 @@ public class CardDeck
   {
     Card jimbo = deck.get(0);
     deck.remove(0);
+    currentNumCards--;
     return jimbo;
   }
 
   public void reset()
   {
+    currentNumCards = NUMCARDS;
     deck = new ABList<Card>(NUMCARDS);
     ImageIcon image;
     for (Card.Suit suit : Card.Suit.values())
@@ -82,6 +85,11 @@ public class CardDeck
          deck.add(new Card(rank, suit, image));
        }
     //deal = deck.iterator();
+  }
+
+  public ABList<Card> getDeck()
+  {
+    return deck;
   }
 }
  

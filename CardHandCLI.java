@@ -22,11 +22,23 @@ public class CardHandCLI
     
     ListInterface<Card> hand = new ABList<Card>(HANDSIZE); // user's hand
     
-    deck.shuffle();
-    hand.add(deck.drawCard());  // deals 1st card and places into hand
-    hand.add(deck.drawCard());
-    
-    printCards(hand);
+    System.out.println("Ey, kid. I see ya' got some "+funds+" bucks there.");
+    System.out.println("I'm gonn' be takin' those, but I ain't no criminal, heh.");
+    System.out.println("Let's play sum' games of in-between, shall we?");
+
+    while(funds>0)
+    {
+      if(deck.getDeck().size()<10)
+      {
+        deck.reset();
+      }
+      deck.shuffle();
+      hand.add(deck.drawCard());  // deals 1st card and places into hand
+      hand.add(deck.drawCard());
+      
+      printCards(hand);
+      wait(1000);
+    }
     /*
     for (int i = 1; i < HANDSIZE; i++)
     {
@@ -66,5 +78,17 @@ public class CardHandCLI
     if(num>bound1&&num<bound2||num<bound1&&num>bound2)
       return true;
     return false;
+  }
+
+  public static void wait(int miliseconds)
+  {
+    try
+    {
+      Thread.sleep(miliseconds);
+    }
+    catch(Exception e)
+    {
+      System.out.println("ok so the sleep broke lol");
+    }
   }
 }
