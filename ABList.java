@@ -14,7 +14,7 @@ public class ABList<T> implements ListInterface<T>
 {
     protected final int DEFCAP = 100; // default capacity
     protected int origCap;            // original capacity
-    protected T[] elements;           // array to hold this list’s elements
+    protected T[] elements;           // array to hold this list's elements
     protected int numElements = 0;    // number of elements in this list
 
     // set by find method
@@ -209,6 +209,11 @@ public class ABList<T> implements ListInterface<T>
         elements[numElements-1] = null;
         numElements--;
         return hold;
+    }
+
+    public void clear()
+    {
+        elements = (T[]) new Object[origCap];
     }
 
     public Iterator<T> iterator()
