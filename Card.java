@@ -25,6 +25,20 @@ public class Card implements Comparable<Card>
   }
 
   public Rank getRank() { return rank; }
+  //NEW
+  public int getValue() 
+  {
+      if(this.rank.ordinal()>=9&&this.rank.ordinal()!=12)
+      {
+         return 10;
+      }
+      if(this.rank.ordinal()==12)
+      {
+         return 11;
+      }
+      return this.rank.ordinal()+2; 
+  }
+  //OLD
   public Suit getSuit() { return suit; }
   public ImageIcon getImage() {return image;}
 

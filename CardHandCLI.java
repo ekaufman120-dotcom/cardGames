@@ -15,21 +15,38 @@ public class CardHandCLI
     final int HANDSIZE = 2;
     double funds = 100; //set to a value of your choice
     double bet = -1;
+    int minValue = 999;
+    int maxValue = -999;
     //int slot;
 
     //Card card;                       // playing card
     CardDeck deck = new CardDeck();  // deck of playing cards
     
-    ListInterface<Card> hand = new ABList<Card>(HANDSIZE); // user's hand
+    ABList<Card> hand = new ABList<Card>(HANDSIZE); // user's hand
     
     System.out.println("Ey, kid. I see ya' got some "+funds+" bucks there.");
+    wait(1000);
     System.out.println("I'm gonn' be takin' those, but I ain't no criminal, heh.");
+    wait(1000);
     System.out.println("Let's play sum' games of in-between, shall we?");
+    wait(1000);
+    System.out.println("And, for all intensive purposes, an ace is 'leven. No ifs, ands, or but's about it!");
+    wait(1000);
 
     while(funds>0)
     {
+      bet = bet(funds, scan);
+      if(bet<1)
+      {
+        System.out.println("Somethin' went wrong with yer bettin'.");
+        wait(1000);
+        break;
+      }
+      funds-=bet;
       if(deck.getDeck().size()<10)
       {
+        System.out.println("Seems we're runnin' low on cards. Don't worry, I know howta' shuffle!");
+        wait(1000);
         deck.reset();
       }
       deck.shuffle();
@@ -37,10 +54,37 @@ public class CardHandCLI
       hand.add(deck.drawCard());
       
       System.out.println("Here's yer cards.");
+      wait(1000);
       printCards(hand);
-      
-      
+      //System.out.print(hand.get(0).getValue());
+      String choice = null;
+      minValue = Math.min(hand.get(0).getValue(), hand.get(1).getValue());
+      maxValue = Math.max(hand.get(0).getValue(), hand.get(1).getValue());
+      wait(1000);
+      if(minValue==maxValue)
+      {
+        System.out.println("Oh. Not so great for you, but it sure is good for me, heh!");
+        wait(1000);
+      }
+      else if()
+      {
+
+      }
+      else
+      {
+        System.out.println("Go on, big shot. Make your choice!");
+      }
+      System.out.println();
+      System.out.println("-------------------------------------------------------------");
+      System.out.println();
+      System.out.println("Okay, next round!");
+      wait(1000);
+      hand.clear();
     }
+
+    System.out.println("Welp, seems I've pulled all the dolla's I could outta' you.");
+    wait(1000);
+    System.out.println("Ye' played great, kid. But I gotta' go.");
     /*
     for (int i = 1; i < HANDSIZE; i++)
     {
@@ -99,15 +143,25 @@ public class CardHandCLI
     double bet = -1;
     System.out.println("'kay. How much ya' wanna bet?");
     System.out.println("Remember, ye got "+funds+" dollas' to spend still.");
-    while(bet>0&&bet<funds)
+    while(bet<=0||bet>funds)
     {
       try{
-        bet = Integer.parseInt(scanner.next());
+        System.out.print("I'd like to bet: ");
+        bet = Double.parseDouble(scanner.nextLine());
       }
       catch(Exception e){
         System.out.println("Kid. That ain't a number.");
       }
-      if(bet == 0)
+      if(bet == -1)
+      {
+
+      }
+      else if(bet < 0)
+      {
+        System.out.println("Anybody ever tell ya' that negatives ain't real? No? Weird.");
+        System.out.println("...well, we ain't playin' with those. Choose somethin' else.");
+      }
+      else if(bet == 0)
       {
         System.out.println("Zero? We ain't playing for fun, kid. Bet somethin' bigger.");
       }
@@ -119,11 +173,16 @@ public class CardHandCLI
       {
         System.out.println("Ooh! All in!");
       }
+      else if(bet >= funds)
+      {
+        System.out.println("You and I both know ya' don't got that much moolah.");
+      }
       else
       {
         System.out.println("'kay. Let's get a move on, shall we?");
       }
     }
+    wait(1000);
     return bet;
   }
 }

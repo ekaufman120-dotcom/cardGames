@@ -213,6 +213,7 @@ public class ABList<T> implements ListInterface<T>
 
     public void clear()
     {
+        numElements = 0;
         elements = (T[]) new Object[origCap];
     }
 
