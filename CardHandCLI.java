@@ -17,6 +17,7 @@ public class CardHandCLI
     double bet = -1;
     int minValue = 999;
     int maxValue = -999;
+    boolean doubledDown = false;
     //int slot;
 
     //Card card;                       // playing card
@@ -36,9 +37,10 @@ public class CardHandCLI
 
     while(funds>0)
     {
+      doubledDown = false;
       bet = -1;
       bet = bet(funds, scan);
-      if(bet<1)
+      if(bet<=0)
       {
         System.out.println("Somethin' went wrong with yer bettin'.");
         wait(1000);
@@ -130,19 +132,40 @@ public class CardHandCLI
           }
           else if(choice.equalsIgnoreCase("Double Down"))
           {
-            
+            if(doubledDown)
+            {
+              System.out.println("I'd love ta' let'cha quadruple down, but them's the rules.");
+            }
+            else if(bet>funds)
+            {
+              System.out.println("Didn't give you that option, did I?");
+            }
+            else
+            {
+              bet*=2;
+              doubledDown = true;
+              System.out.println("Nice.");
+            }
+            choice = "gingle";
+          }
+          else if(choice.equals("gingle"))
+          {
+            System.out.println("Readin' the code, are we?");
           }
           else
           {
             System.out.println("Not an option. Don't make me choose for ya!");
             choice = "gingle";
           }
+          wait(1000);
         }
       }
+      wait(1500);
       System.out.println();
       System.out.println("-------------------------------------------------------------");
       System.out.println();
-      System.out.println("Okay, next round!");
+      if(funds>0)
+        System.out.println("Okay, next round!");
       wait(1000);
       hand.clear();
     }
@@ -150,6 +173,7 @@ public class CardHandCLI
     System.out.println("Welp, seems I've pulled all the dolla's I could outta' you.");
     wait(1000);
     System.out.println("Ye' played great, kid. But I gotta' go.");
+    scan.close();
     /*
     for (int i = 1; i < HANDSIZE; i++)
     {
