@@ -109,7 +109,8 @@ public class CardHandCLI
             else
             {
               System.out.println("No hard feelings, but ya' guessed wrong.");
-            }
+            } 
+            wait(1000);
           }
           else if(choice.equalsIgnoreCase("Outside"))
           {
@@ -129,6 +130,7 @@ public class CardHandCLI
             {
               System.out.println("No hard feelings, but ya' guessed wrong.");
             }
+            wait(1000);
           }
           else if(choice.equalsIgnoreCase("Double Down"))
           {
@@ -157,7 +159,6 @@ public class CardHandCLI
             System.out.println("Not an option. Don't make me choose for ya!");
             choice = "gingle";
           }
-          wait(1000);
         }
       }
       wait(1500);
