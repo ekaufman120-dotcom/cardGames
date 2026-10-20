@@ -21,6 +21,7 @@ public class CardHandCLI
 
     //Card card;                       // playing card
     CardDeck deck = new CardDeck();  // deck of playing cards
+    Card card3 = deck.nextCard();
     
     ABList<Card> hand = new ABList<Card>(HANDSIZE); // user's hand
     
@@ -35,6 +36,7 @@ public class CardHandCLI
 
     while(funds>0)
     {
+      bet = -1;
       bet = bet(funds, scan);
       if(bet<1)
       {
@@ -57,22 +59,85 @@ public class CardHandCLI
       wait(1000);
       printCards(hand);
       //System.out.print(hand.get(0).getValue());
-      String choice = null;
+      String choice = "gingle";
       minValue = Math.min(hand.get(0).getValue(), hand.get(1).getValue());
       maxValue = Math.max(hand.get(0).getValue(), hand.get(1).getValue());
       wait(1000);
       if(minValue==maxValue)
       {
-        System.out.println("Oh. Not so great for you, but it sure is good for me, heh!");
+        System.out.println("Dang nabbit, they're both the same value! I'll win next round, you'll see!");
+        funds+=bet*2;
         wait(1000);
       }
-      else if()
+      else if(minValue==maxValue-1)
       {
-
+        System.out.println("Oh. Not so great for you, but it sure is good for me, heh!");
+        wait(1000);
       }
       else
       {
         System.out.println("Go on, big shot. Make your choice!");
+        System.out.print("Options: Inside, Outside");
+        if(bet<=funds)
+        {
+          System.out.println(", or Double Down!");
+        }
+        else
+        {
+          System.out.println(".");
+        }
+
+        while(choice.equals("gingle"))
+        {
+          choice = scan.nextLine();
+          if(choice.equalsIgnoreCase("Inside"))
+          {
+            card3 = deck.drawCard();
+            System.out.println("The dealer drew a "+card3);
+            wait(1000);
+            if(card3.getValue()>minValue&&card3.getValue()<maxValue)
+            {
+              System.out.println("Lucky guess.");
+              funds+=bet*2;
+            }
+            else if(card3.getValue()==minValue||card3.getValue()==maxValue)
+            {
+              System.out.println("Yikes, bump!");
+            }
+            else
+            {
+              System.out.println("No hard feelings, but ya' guessed wrong.");
+            }
+          }
+          else if(choice.equalsIgnoreCase("Outside"))
+          {
+            card3 = deck.drawCard();
+            System.out.println("The dealer drew a "+card3);
+            wait(1000);
+            if(card3.getValue()<minValue||card3.getValue()>maxValue)
+            {
+              System.out.println("Lucky guess.");
+              funds+=bet*2;
+            }
+            else if(card3.getValue()==minValue||card3.getValue()==maxValue)
+            {
+              System.out.println("Yikes, bump!");
+            }
+            else
+            {
+              System.out.println("No hard feelings, but ya' guessed wrong.");
+            }
+          }
+          else if(choice.equalsIgnoreCase("Double Down"))
+          {
+            
+          }
+          else
+          {
+            System.out.println("Not an option. Don't make me choose for ya!");
+            choice = "gingle";
+          }
+        }
       }
       System.out.println();
       System.out.println("-------------------------------------------------------------");
